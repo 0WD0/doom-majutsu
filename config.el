@@ -2,7 +2,15 @@
 
 ;; Declare autoloaded commands via use-package! for lazy loading
 (use-package! majutsu
-  :defer-incrementally (dash f s with-editor package eieio transient))
+  :defer-incrementally (dash f s with-editor package eieio transient)
+  :config
+  (set-popup-rule! "^\\(?:\\*majutsu\\|majutsu:\\)" :ignore t)
+  ;; Match Doom's Magit module: keep Magit's core "TAB" behavior in the
+  ;; package, and add an explicit Evil normal-state [tab] binding here so
+  ;; Doom's smart-tab dispatcher doesn't intercept collapsed sections first.
+  (when (modulep! :editor evil +everywhere)
+    (define-key! 'normal majutsu-mode-map
+      [tab] #'majutsu-section-toggle)))
 
 ;; Keybindings: `SPC j` prefix (evil leader)
 (when (modulep! :editor evil)
