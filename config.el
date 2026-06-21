@@ -3,6 +3,11 @@
 ;; Declare autoloaded commands via use-package! for lazy loading
 (use-package! majutsu
   :defer-incrementally (dash f s with-editor package eieio transient)
+  :init
+  ;; Match Doom's Magit module: set these before Majutsu can load transient.
+  (setq transient-levels-file  (file-name-concat doom-profile-data-dir "transient" "levels")
+        transient-values-file  (file-name-concat doom-profile-data-dir "transient" "values")
+        transient-history-file (file-name-concat doom-profile-data-dir "transient" "history"))
   :config
   (set-popup-rule! "^\\(?:\\*majutsu\\|majutsu:\\)" :ignore t)
   ;; Match Doom's Magit module: keep Magit's core "TAB" behavior in the
