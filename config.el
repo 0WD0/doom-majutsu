@@ -15,7 +15,11 @@
   ;; Doom's smart-tab dispatcher doesn't intercept collapsed sections first.
   (when (modulep! :editor evil +everywhere)
     (define-key! 'normal majutsu-mode-map
-      [tab] #'majutsu-section-toggle)))
+      [tab] #'majutsu-section-toggle))
+  ;; Enable forge support if asked for.
+  ;; User is responsible for providing the dependency itself.
+  (when (modulep! +forge)
+    majutsu-forge-mode 1))
 
 ;; Keybindings: `SPC j` prefix (evil leader)
 (when (modulep! :editor evil)
